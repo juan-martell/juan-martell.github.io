@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightThemeBlack from 'starlight-theme-black'
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,20 +9,23 @@ export default defineConfig({
   base: '/juan-martell.github.io',
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: {
-			},
+            plugins: [
+        starlightThemeBlack({})
+      ],
+			title: 'Juan B. Martell',	
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'sobre mi',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Experiencia', slug: 'curriculum/experiencia' },
+						{ label: 'Formacion', slug: 'curriculum/formacion' },
+						{ label: 'contactame', slug: 'curriculum/contacto' },
+						{ label: 'skills', slug: 'curriculum/skills' }
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'random',
+					autogenerate: { directory: 'guides/' },
 				},
 			],
 		}),

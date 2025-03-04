@@ -16,6 +16,7 @@
     "@astrojs/starlight": "^0.32.2",
     "astro": "^5.1.5",
     "gh-pages": "^6.3.0",
-    "sharp": "^0.32.5"
+    "sharp": "^0.32.5",
+    "starlight-theme-black": "^0.3.0"
   }
 }
