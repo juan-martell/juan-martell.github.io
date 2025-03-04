@@ -1,0 +1,21 @@
+{
+  "name": "juan-martell.github.io",
+  "homepage": "http://juanmartell.online/",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.32.2",
+    "astro": "^5.1.5",
+    "gh-pages": "^6.3.0",
+    "sharp": "^0.32.5"
+  }
+}
