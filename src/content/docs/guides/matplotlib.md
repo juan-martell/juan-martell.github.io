@@ -1,7 +1,7 @@
-## 2024-10-22
-# Matplotlib 
-## Libreria para hacer graficos y etc
-
+---
+title: Matplotlib
+description: 22/10/2024
+---
 Es la mas usada en el area probablemente, super simple, lo corres y te abre el grafico 
 que le pediste. Pero para eso necesitamos una interfaz grafica.
 

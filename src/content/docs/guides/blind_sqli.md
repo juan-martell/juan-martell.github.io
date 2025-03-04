@@ -1,5 +1,7 @@
-# 06/02/2025
-# Blind SQL injection
+---
+title: BLIND SQL INJECTION
+description: 06/02/2025
+---
 Tipo de [SQLI](sql_injection.md) en el que la aplicacion es vulnerable a algun ataque pero la respuesta HTTP 
 no lo muestra directamente sino que con cambios sutiles en la pagina o errores simples q no dicen nada, 
 esto nos obliga a tener que generar payloads mas especificos.

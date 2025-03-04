@@ -1,5 +1,7 @@
-## 2025-02-05
-# ¿Que es una injeccion SQL?
+---
+title: SQL INJECTION
+description: 29/01/2025
+---
 Tipo de vulnerabilidad en la que el hacker interfiere en la conversacion entre la aplicacion web y su base de datos.
 La idea general es que la pagina web utiliza algun tipo de formulario o cookie que nosotros podemos modificar,
 que se chequea en una base de datos SQL, el problema ocurre generalmente cuando el input del usuario no es 

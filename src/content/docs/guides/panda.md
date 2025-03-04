@@ -1,6 +1,8 @@
-# 2024-10-22
+---
+title: Panda
+description: 22/10/2024
+---
 Panda es una libreria de python que se usa para armar bases de datos. es facil y rapida.
-Ademas es la forma que usamos en Pensamiento cientifico para manipular datos.
 
 > import pandas as pd 
 
