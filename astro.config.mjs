@@ -9,7 +9,14 @@ export default defineConfig({
 	integrations: [
 		starlight({
             plugins: [],
-			title: 'Juan B. Martell',	
+			title: 'Juan B. Martell',	      
+      customCss: [
+        './src/styles/custom.css',
+        ],
+      logo: {
+        light: './src/assets/logo.png',
+        dark: './src/assets/logo-dark.png',
+      },
 			sidebar: [
 				{
 					label: 'Yo',
