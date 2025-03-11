@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightSidebarTopics from 'starlight-sidebar-topics';
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,8 +9,32 @@ export default defineConfig({
   base: '/juan-martell.github.io',
 	integrations: [
 		starlight({
-            plugins: [],
-			title: 'Juan B. Martell',	      
+      plugins: [        
+            starlightSidebarTopics([
+            {
+              label: 'Curriculum',
+              link: '/curriculum/',
+              icon: 'information',
+              items: ['curriculum/contacto', 'curriculum/experiencia', 'curriculum/formacion', 'curriculum/skills'],
+            },
+            {
+              label: 'Notas',
+              link: '/guides/',
+              icon: 'pen',
+              items: [
+                {
+                label: 'Facultad',
+                items: ['guides/matplotlib', 'guides/panda'],
+                },
+                {
+                label: 'Random',
+                items: ['guides/links'],
+                },
+              ]
+            },
+      ]),
+      ],
+		  title: 'Juan B. Martell',	      
       customCss: [
         './src/styles/custom.css',
         ],
@@ -18,21 +43,6 @@ export default defineConfig({
         dark: './src/assets/logo-dark.png',
         replacesTitle: false,
       },
-			sidebar: [
-				{
-					label: 'Yo',
-					items: [
-						{ label: 'About me', slug: 'curriculum/contacto' },
-						{ label: 'Experiencia', slug: 'curriculum/experiencia' },
-						{ label: 'Formacion', slug: 'curriculum/formacion' },
-						{ label: 'skills', slug: 'curriculum/skills' }
-					],
-				},
-				{
-					label: 'random',
-					autogenerate: { directory: 'guides/' },
-				},
-			],
 		}),
 	],
 });
