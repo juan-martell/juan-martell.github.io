@@ -19,22 +19,23 @@ export default defineConfig({
             },
             {
               label: 'Notas',
-              link: '/guides/matplotlib',
+              link: '/notas/facultad/matplotlib',
               icon: 'pen',
               items: [
                 {
                 label: 'Facultad',
-                items: ['guides/matplotlib', 'guides/panda'],
+                autogenerate: { directory: 'notas/facultad'},
                 },
                 {
-                label: 'Random',
-                items: ['guides/links', "guides/blind_sqli", "guides/sql_injection"],
+                label: 'Otros',
+                autogenerate: { directory: 'notas/otros' }, 
                 },
               ],
             },
       ]),
       ],
-		  title: 'Juan B. Martell',	      
+		  title: 'Juan B. Martell',	
+      pagefind: false,
       customCss: [
         './src/styles/custom.css',
         ],

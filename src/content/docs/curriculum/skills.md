@@ -1,5 +1,6 @@
 ---
 title: Habilidades
+next: false
 ---
 ## Tecnicas
 
