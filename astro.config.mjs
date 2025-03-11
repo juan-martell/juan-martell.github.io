@@ -13,13 +13,13 @@ export default defineConfig({
             starlightSidebarTopics([
             {
               label: 'Curriculum',
-              link: '/curriculum/',
+              link: '/curriculum/contacto',
               icon: 'information',
               items: ['curriculum/contacto', 'curriculum/experiencia', 'curriculum/formacion', 'curriculum/skills'],
             },
             {
               label: 'Notas',
-              link: '/guides/',
+              link: '/guides/matplotlib',
               icon: 'pen',
               items: [
                 {
