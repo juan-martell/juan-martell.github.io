@@ -30,7 +30,7 @@ export default defineConfig({
                 label: 'Random',
                 items: ['guides/links', "guides/blind_sqli", "guides/sql_injection"],
                 },
-              ]
+              ],
             },
       ]),
       ],
