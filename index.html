@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mejores Notebooks Usadas</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #ffffff;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+  }
+  th {
+    background-color: #272727;
+    cursor: pointer;
+    user-select: none;
+  }
+  th:hover {
+    background-color: #333333;
+  }
+  tr:nth-child(even) {
+    background-color: #1a1a1a;
+  }
+  tr:hover {
+    background-color: #2a2a2a;
+  }
+  a {
+    color: #4da3ff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <h1>Mejores notebooks usadas Mercado Libre</h1>
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th class="sortable" data-key="titulo">Titulo</th>
+        <th class="sortable" data-key="precio">Precio</th>
+        <th class="sortable" data-key="marca">Marca</th>
+        <th class="sortable" data-key="modelo">Modelo</th>
+        <th class="sortable" data-key="cpu">CPU</th>
+        <th class="sortable" data-key="cpu_gen">Gen</th>
+        <th class="sortable" data-key="ram">RAM</th>
+        <th class="sortable" data-key="score">Score</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    let products = [];
+    let sortColumn = null; // ordenamos con precio / puntaje asi q esto null
+    let sortAsc = true; // ascendente, mas barato primero
+    async function loadProducts() {
+      try {
+        const res = await fetch('top.json?cachebust=' + Date.now()); // agarro el archivo
+        const text = await res.text();
+        products = text.trim().split('\n').map(line => JSON.parse(line)); // esto porque el archivo sale con un json x fila
+        products.sort((a, b) => { // este es el sorting que usamos
+          const ratioA = (a.score && a.precio) ? a.precio / a.score : Infinity;
+          const ratioB = (b.score && b.precio) ? b.precio / b.score : Infinity;
+          return ratioA - ratioB;
+        });
+        renderTable();
+      } catch (err) {
+        console.error(err);
+        document.querySelector('#productTable tbody').innerHTML =
+          '<tr><td colspan="10">Error loading products.</td></tr>';
+      }
+    }
+
+    function renderTable() {
+      products.sort((a, b) => {
+        let valA = a[sortColumn] ?? '';
+        let valB = b[sortColumn] ?? '';
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+        if (valA < valB) return sortAsc ? -1 : 1;
+        if (valA > valB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      const tbody = document.querySelector('#productTable tbody');
+      tbody.innerHTML = products.map(p => `
+        <tr>
+          <td>${p.titulo || ''}</td>
+          <td class="price">$${p.precio?.toLocaleString('es-AR') || ''}</td>
+          <td>${p.marca || ''}</td>
+          <td>${p.modelo || ''}</td>
+          <td>${p.cpu || ''}</td>
+          <td>${p.cpu_gen || ''}</td>
+          <td>${p.ram ? p.ram + ' GB' : ''}</td>
+          <td>${p.score || ''}</td>
+          <td>${p.link ? `<a href="${p.link}" target="_blank">view</a>` : ''}</td>
+        </tr>
+      `).join('');
+    }
+
+    document.querySelectorAll('th.sortable').forEach(th => { // nos deja cambiar la direccion del sorting x columna!
+      th.addEventListener('click', () => {
+        const key = th.getAttribute('data-key');
+        if (sortColumn === key) {
+          sortAsc = !sortAsc; 
+        } else {
+          sortColumn = key;
+          sortAsc = true;
+        }
+        renderTable();
+      });
+    });
+
+    loadProducts();
+  </script>
+</body>
+</html>
