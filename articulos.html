@@ -86,7 +86,7 @@
     let sortAsc = true; // ascendente, mas barato primero
     async function loadProducts() {
       try {
-        const res = await fetch('top.json?cachebust=' + Date.now()); // agarro el archivo
+        const res = await fetch('articulos.json?cachebust=' + Date.now()); // agarro el archivo
         const text = await res.text();
         products = text.trim().split('\n').map(line => JSON.parse(line)); // esto porque el archivo sale con un json x fila
         products.sort((a, b) => { // este es el sorting que usamos
