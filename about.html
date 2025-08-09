@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About</title>
+<style>
+  nav {
+      display: flex;
+      background-color: #333;
+      color: white;
+      padding: 3px;
+  }
+  nav a {
+      color: white;
+      margin: 5px;
+      text-decoration: none;
+  }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 10px;
+  }
+  h1 {
+    text-align: left;
+    color: #ffffff;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+  }
+  th {
+    background-color: #272727;
+    cursor: pointer;
+    user-select: none;
+  }
+  th:hover {
+    background-color: #333333;
+  }
+  tr:nth-child(even) {
+    background-color: #1a1a1a;
+  }
+  tr:hover {
+    background-color: #2a2a2a;
+  }
+  a {
+    color: #4da3ff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Mejores Notebooks</a>
+  <a href="articulos.html">Lista Completa</a>
+  <a href="about.html" style="text-align: right;margin-left: auto;">?</a>
+</nav>
+<div id="readme"></div>
+<!-- Marked.js for rendering markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+fetch('README.md')
+  .then(res => res.text())
+  .then(md => {
+    document.getElementById('readme').innerHTML = marked.parse(md);
+  })
+  .catch(err => {
+    document.getElementById('readme').innerText = "Error loading README.md";
+    console.error(err);
+  });
+</script>
+</body>
+</html>
