@@ -27,29 +27,39 @@
     text-align: left;
     color: #ffffff;
   }
+  .container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  .left {
+    flex: 2;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
   table {
     width: 100%;
     border-collapse: collapse;
     background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
   }
   th, td {
-    padding: 10px;
-    text-align: left;
+    padding: 8px;
     border-bottom: 1px solid #333;
   }
   th {
-    background-color: #272727;
-    cursor: pointer;
-    user-select: none;
-  }
-  th:hover {
-    background-color: #333333;
-  }
-  tr:nth-child(even) {
-    background-color: #1a1a1a;
-  }
-  tr:hover {
-    background-color: #2a2a2a;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
   }
   a {
     color: #4da3ff;
@@ -66,19 +76,84 @@
   <a href="articulos.html">Lista Completa</a>
   <a href="about.html" style="text-align: right;margin-left: auto;">?</a>
 </nav>
-<div id="readme"></div>
-<!-- Marked.js for rendering markdown -->
+<div class="container">
+  <div class="left" id="readme"></div>
+  <div class="right">
+    <div>
+      <h3>Ultimos agregados</h3>
+      <table id="agregados-hoy">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Ultimas ventas</h3>
+      <table id="vendidos-hoy">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-fetch('README.md')
-  .then(res => res.text())
-  .then(md => {
-    document.getElementById('readme').innerHTML = marked.parse(md);
-  })
-  .catch(err => {
-    document.getElementById('readme').innerText = "Error loading README.md";
-    console.error(err);
+(async function(){
+  // paso de markdon a html el readme.md asi no tengo que escribirlo devuelta jeje
+  const readmeText = await fetch('README.md').then(r => r.text());
+  document.getElementById('readme').innerHTML = marked.parse(readmeText);
+
+  const rawText = await fetch('articulos.json').then(r => r.text());
+  let products;
+
+  try {
+    // aca checkeo si esta en json normal
+    products = JSON.parse(rawText);
+  } catch {
+    // aca hago fallback a ndjson
+    products = rawText.trim().split("\n").map(line => JSON.parse(line));
+  }
+
+  // todo esto es pq no me aparecian los productos vendidos hoy asi q tuve q ir con los vendidos ayer
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const yesterdayStr = yesterday.toLocaleDateString('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
   });
+  // aca hago filtro, podria crear otro json con los productos ya filtrados pero ya son demasiados json
+  const agregadosHoy = products.filter(p => p.fecha_agregado === yesterdayStr);
+  const vendidosHoy = products.filter(p => p.disponible === false && p.ultimo_cambio === yesterdayStr);
+
+  const agregadosTable = document.querySelector('#agregados-hoy tbody');
+  const vendidosTable = document.querySelector('#vendidos-hoy tbody');
+
+  // agrego todos los productos a la tabla de agregados y trato de agregar el link y el precio bien formateado (no funciono )
+  for (const prod of agregadosHoy) {
+    const priceFormatted = Number(prod.precio).toLocaleString('es-AR');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><a href="${prod.link}" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
+    agregadosTable.appendChild(tr);
+  }
+  // agrego todos los productos a la tabla de vendidos y trato de agregar el link y el precio bien formateado (no funciono )
+  for (const prod of vendidosHoy) {
+    const priceFormatted = Number(prod.precio).toLocaleString('es-AR');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><a href="${prod.link}" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
+    vendidosTable.appendChild(tr);
+  }
+})();
 </script>
 </body>
 </html>
