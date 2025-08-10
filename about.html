@@ -134,7 +134,7 @@
   });
   // aca hago filtro, podria crear otro json con los productos ya filtrados pero ya son demasiados json
   const agregadosHoy = products.filter(p => p.fecha_agregado === yesterdayStr);
-  const vendidosHoy = products.filter(p => p.disponible === false);
+  const vendidosHoy = products.filter(p => p.disponible === false && p.ultimo_cambio === yesterdayStr);
 
   const agregadosTable = document.querySelector('#agregados-hoy tbody');
   const vendidosTable = document.querySelector('#vendidos-hoy tbody');
@@ -143,14 +143,14 @@
   for (const prod of agregadosHoy) {
     const priceFormatted = Number(prod.precio).toLocaleString('es-AR');
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><a href="${prod.link}" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
+    tr.innerHTML = `<td><a href="${prod.link}" style="color: #e0e0e0" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
     agregadosTable.appendChild(tr);
   }
   // agrego todos los productos a la tabla de vendidos y trato de agregar el link y el precio bien formateado (no funciono )
   for (const prod of vendidosHoy) {
     const priceFormatted = Number(prod.precio).toLocaleString('es-AR');
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><a href="${prod.link}" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
+    tr.innerHTML = `<td><a href="${prod.link}" style="color: #e0e0e0" target="_blank" rel="noopener noreferrer">${prod.titulo}</a></td><td>$${priceFormatted}</td>`;
     vendidosTable.appendChild(tr);
   }
 })();
