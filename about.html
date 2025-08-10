@@ -134,7 +134,7 @@
   });
   // aca hago filtro, podria crear otro json con los productos ya filtrados pero ya son demasiados json
   const agregadosHoy = products.filter(p => p.fecha_agregado === yesterdayStr);
-  const vendidosHoy = products.filter(p => p.disponible === false && p.ultimo_cambio === yesterdayStr);
+  const vendidosHoy = products.filter(p => p.disponible === false);
 
   const agregadosTable = document.querySelector('#agregados-hoy tbody');
   const vendidosTable = document.querySelector('#vendidos-hoy tbody');
