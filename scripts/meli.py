@@ -390,8 +390,26 @@ def imperdible(d:list[dict]) -> list[dict]:
         if i["score"] >= 40 or i["precio"] < 150000:
             res.append(i)
     return res
+            
+def cambiar_formato_fecha(fecha: str) -> int:
+    aux = fecha.split('/')
+    dia = aux[0]
+    mes = aux[1]
+    anio = aux[2]
+    numero = int(anio+mes+dia)
+    return numero
 
-notebooks = main(paginas_articulos)
-articulos = guardar_todas_las_paginas(notebooks)
-top = imperdible(articulos)
-guardar_json(top, archivo_top)
+# notebooks = main(paginas_articulos)
+# articulos = guardar_todas_las_paginas(notebooks)
+# top = imperdible(articulos)
+# guardar_json(top, archivo_top)
+articulos = abrir_json(nombre_articulo)
+nuevas = sorted(articulos, key=lambda x: cambiar_formato_fecha(x['fecha_agregado']), reverse=True)
+vendidas = sorted(filtrar_por(articulos, "disponible", lambda x: x == False), key=lambda x: cambiar_formato_fecha(x['ultimo_cambio']), reverse=True)
+guardar_json(nuevas[:20], 'nuevos_ingresos.json')
+guardar_json(vendidas[:20], 'ultimas_ventas.json')
+
+    
+
+
+
