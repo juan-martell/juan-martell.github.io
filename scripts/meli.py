@@ -399,11 +399,10 @@ def cambiar_formato_fecha(fecha: str) -> int:
     numero = int(anio+mes+dia)
     return numero
 
-# notebooks = main(paginas_articulos)
-# articulos = guardar_todas_las_paginas(notebooks)
-# top = imperdible(articulos)
-# guardar_json(top, archivo_top)
-articulos = abrir_json(nombre_articulo)
+notebooks = main(paginas_articulos)
+articulos = guardar_todas_las_paginas(notebooks)
+top = imperdible(articulos)
+guardar_json(top, archivo_top)
 nuevas = sorted(articulos, key=lambda x: cambiar_formato_fecha(x['fecha_agregado']), reverse=True)
 vendidas = sorted(filtrar_por(articulos, "disponible", lambda x: x == False), key=lambda x: cambiar_formato_fecha(x['ultimo_cambio']), reverse=True)
 guardar_json(nuevas[:20], 'nuevos_ingresos.json')
