@@ -33,4 +33,5 @@ El objetivo de esta pagina es:
 # ¿Qué falta?
 
 - **Agregar la página que muestra productos que ingresan, que se venden, que cambiaron de precio HOY.**
-- **Ampliar el programa para que funcione con mas marcas y modelos (Por ahora solo busca thinkpads y latitude)**
+- **Ampliar el programa para que funcione con mas marcas y modelos (Por ahora solo dell y lenovo)**
+- **Mejorar el sistema que uso para determinar caracteristicas, haciendo que funcione por contexto (ej. si la linea es thinkbook entonces el modelo solo puede ser 13/14s)**
