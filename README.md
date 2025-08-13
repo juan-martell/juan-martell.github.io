@@ -15,7 +15,7 @@ Ahora que tenemos la lista con todos los productos y la información de cada uno
 
 En este momento la pagina esta siendo hosteada en github pages, y es actualizada desde un container cada dos horas con un script corriendo en cron.
 
-Todos los archivos que hacen funcionar a esta pagina se pueden ver en [mi github](https://github.com/juan-martell/juan-martell.github.io)
+Todos los archivos que hacen funcionar a esta pagina se puede ver [aca](https://github.com/juan-martell/juan-martell.github.io)
 
 # ¿Para qué?
 La idea inicial surge porque **necesitaba notebooks para ampliar mi cluster** y para eso sentía que comprar una notebook nueva era medio desperdicio. Así que empecé a revisar mercadolibre periódicamente en busca de buenas notebooks con buen precio y el proceso era **muy monótono y lento** ya que la ui estaba llena de cosas, **además de que para cada producto que me interesara tenía que**:
